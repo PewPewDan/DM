@@ -248,7 +248,7 @@ sclass65_test  = testing(sclass65_split)
 set.seed(123)
 ## Attempt for loop
 
-k_vec65= c(2:17)
+k_vec65= c(2:292)
 knnk65 = list()
 output65 = list()
 rmse_vec65 = c()
@@ -266,10 +266,11 @@ plot(k_vec65, rmse_vec65)
 
 my_data65 = data.frame(k_vec65, rmse_vec65)
 my_data65
-min(my_data65$rmse_vec)
+
+
 
 ```
-The minimum RMSE for the AMG 65 trim is 18150.36 at k = 13. 
+The minimum RMSE for the AMG 65 trim is 12,266.44 at k = 18. 
 
 ### Plot for RMSE vs K, 65 AMG 
 
@@ -281,20 +282,20 @@ plot(k_vec65, rmse_vec65)
 
 ```{r, include = FALSE}
 
-## Manual calculation for k = 13
+## Manual calculation for k = 18
 
-knn13 = knnreg( price ~ mileage, data=sclass65_train, k=13)
+knn18 = knnreg( price ~ mileage, data=sclass65_train, k=18)
 
 
-## Predictions Knn13
+## Predictions Knn18
 
 sclass65pred_test = sclass65_test %>%
-  mutate(Price_pred = predict(knn13, sclass65_test))
+  mutate(Price_pred = predict(knn18, sclass65_test))
 
-##RMSE KNN13
-modelr::rmse(knn13, sclass65pred_test)
+##RMSE KNN18
+modelr::rmse(knn18, sclass65pred_test)
 
-## Plot KNN13
+## Plot KNN18
 
 p_test = ggplot(data = sclass65pred_test) + 
   geom_point(mapping = aes(x = mileage, y = price), alpha=0.2) 
