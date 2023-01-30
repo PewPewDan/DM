@@ -12,10 +12,6 @@ ECO395M HW 1
 
 ![](HW1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->![](HW1_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
-Overall, it seems as though Tuesdays and Saturdays experience slightly
-higher delays than average, and that American Airlines experiences
-larger delays on Saturdays.
-
 ## Question 2
 
 ### Part a

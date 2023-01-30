@@ -82,7 +82,6 @@ ggplot(data=avg_del_day, aes(x=DayOfWeek, y=avg_delay)) +
   ggtitle("Average Delay by the Day of the Week (colored by Airline)") +   labs(caption = cap2)
 ```
 
-Overall, it seems as though Tuesdays and Saturdays experience slightly higher delays than average, and that American Airlines experiences larger delays on Saturdays. 
 
 ## Question 2
 
