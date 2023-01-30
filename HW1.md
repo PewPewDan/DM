@@ -10,7 +10,7 @@ ECO395M HW 1
 
 ![](HW1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-![](HW1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](HW1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->![](HW1_files/figure-gfm/unnamed-chunk-4-2.png)<!-- -->
 
 Overall, it seems as though Tuesdays and Saturdays experience slightly
 higher delays than average, and that American Airlines experiences
@@ -85,16 +85,38 @@ y = str_wrap("Similarly to departure delays, we can see that the arrival delay i
 ggplot(airline, aes(x = DayOfWeek, y = ArrDelay, color = UniqueCarrier)) +geom_point() + xlab("Day of Week") + ylab("Arrival Delay") + ggtitle("Arrival Delay by Day of Week (Colored by Airline)") + labs(caption = y)
 
 
-avg_air = airline %>%
-  group_by(DayOfWeek, UniqueCarrier) %>%
-  summarise(dep_delay = mean(DepDelay), arr_delay = mean(ArrDelay), avg_delay = mean(arr_delay + dep_delay))
+airline2 = filter(airline, is.na(ArrDelay) == FALSE)
 
-z = str_wrap("When we look at the average total delay, we can see that more airlines have delays on Tuesdays, but there is not much else we can reason from this graph", 80)
+avg_del_carrier = airline2 %>%
+  group_by(UniqueCarrier) %>%
+  summarise(avg_delay = mean(ArrDelay))
 
-ggplot(avg_air, aes(x = DayOfWeek, y = avg_delay, color = UniqueCarrier)) + geom_point() + xlab("Day of the Week") + ylab("Average Total Delay (Including Arrival and Departure") + ggtitle("Average Delay by the Day of the Week (colored by Airline)") + labs(caption = z)
+avg_del_day = airline2 %>%
+  group_by(DayOfWeek) %>%
+  summarise(avg_delay = mean(ArrDelay))
+
+cap1 = str_wrap("Above we can see the average delay for passengers arriving to
+                their terminal airport based on the which Airline they flew
+                with. We can see that US airlines has the least average delays
+                while OH has the most", 80)
 
 
+cap2 = str_wrap("Above we can see the average delay for passengers arriving to their terminal airport based on the day of the week. We can see that Fridays have the most delays with Saturdays having the least", 80)
 
+ggplot(data=avg_del_carrier, aes(x=UniqueCarrier, y=avg_delay, 
+                                 color = UniqueCarrier, fill = UniqueCarrier)) +
+  geom_bar(stat="identity") +
+  xlab("Airline Carrier") + 
+  ylab("Average Arrival Delay") + 
+  ggtitle("Average Delay by the Day of the Week (colored by Airline)") +
+  labs(caption = cap2)
+
+
+ggplot(data=avg_del_day, aes(x=DayOfWeek, y=avg_delay)) +
+  geom_bar(stat="identity", color="black", fill="black") + 
+  xlab("Day of the Week") + 
+  ylab("Average Arrival Delay") + 
+  ggtitle("Average Delay by the Day of the Week (colored by Airline)") +   labs(caption = cap2)
 
 ## read in data for 2
 
